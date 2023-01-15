@@ -10,16 +10,33 @@ import com.classic.seethamahalakshmi.misc.Resources
 import java.util.stream.Collectors
 
 class EngineX {
+
     @RequiresApi(Build.VERSION_CODES.N)
-    fun processCommand(command: Command): CategoryType {
+    fun startProcessing(command : Command) {
         Resources.initializeResources()
+        preprocessCommand(command)
+        processFirstLayer(command)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun preprocessCommand(command: Command) {
+        command.tokens = getTokens(command.rawText) as MutableList<String>
+        command.tokens = preProcessText(command.tokens)
+    }
+
+    /*
+        Identifies the generic category of the command
+     */
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun processFirstLayer(command: Command) {
         val commandTokens = command.tokens as ArrayList<String>
         val probabilityMap = HashMap<CategoryType, Int>()
         for (category in globalKeywordsList) {
             probabilityMap[category.categoryType] =
                 getMatchBetweenList(commandTokens, category.categoryList)
         }
-        return getMaximumMatchedCategory(probabilityMap)
+        command.categoryType = getMaximumMatchedCategory(probabilityMap)
+        Log.i("SKHST 1857", command.categoryType.toString())
     }
 
     private fun getMaximumMatchedCategory(probabilityMap: HashMap<CategoryType, Int>): CategoryType {

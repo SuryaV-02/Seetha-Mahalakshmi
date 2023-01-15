@@ -17,6 +17,10 @@ fun changeToLowerCase(word: String): String {
     return word.toLowerCase(Locale.getDefault())
 }
 
+fun getTokens(inputText : String) : List<String> {
+    return inputText.split(" ")
+}
+
 private fun removeSpecialSymbols(word: String): String {
     // TODO: Regex to replace trailing ',' symbol at word
     word.replace(SPECIAL_SYMBOLS_REMOVER,"")

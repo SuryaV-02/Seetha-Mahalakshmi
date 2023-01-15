@@ -19,8 +19,8 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.N)
     private fun startTest() {
         val testCommand = Command("Get my Pills, and medicine record and appointment details")
-        val seetha = Model()
-        seetha.processCommand(testCommand)
+        val engineX = EngineX()
+        engineX.startProcessing(testCommand)
 
     }
 }
