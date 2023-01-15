@@ -5,16 +5,29 @@ import android.util.Log;
 import com.classic.seethamahalakshmi.classfiles.Category;
 import com.classic.seethamahalakshmi.enums.CategoryType;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Resources {
     public static ArrayList<Category> globalKeywordsList;
+    public static ArrayList<String> dayTimes;
+    public static String timePattern = "[0-9]{2}:[0-9]{2}";
+    public static String dayPattern = "[0-9]{2}/[0-9]{2}/[0-9]{2}";
     public static void initializeResources() {
         Log.i("SKHST 21386" , "Initialising resources");
         globalKeywordsList = new ArrayList<>();
+        initializeMiscData();
         initializeAppointmentData();
         initializePillsData();
+    }
+
+    private static void initializeMiscData() {
+        initializeDayTimes();
+    }
+
+    private static void initializeDayTimes() {
+        dayTimes = new ArrayList<>(List.of("yesterday", "today", "tomorrow"));
     }
 
     private static void initializeAppointmentData() {

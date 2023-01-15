@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun startTest() {
-        val testCommand = Command("")
+        val testCommand = Command("Cancel my appointment at 12:30 PM today")
         val engineX = EngineX()
         engineX.startProcessing(testCommand)
 
