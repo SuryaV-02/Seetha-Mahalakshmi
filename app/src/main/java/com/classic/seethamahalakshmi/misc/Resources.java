@@ -1,6 +1,9 @@
-package com.classic.seethamahalakshmi;
+package com.classic.seethamahalakshmi.misc;
 
 import android.util.Log;
+
+import com.classic.seethamahalakshmi.classfiles.Category;
+import com.classic.seethamahalakshmi.enums.CategoryType;
 
 import java.util.ArrayList;
 import java.util.List;

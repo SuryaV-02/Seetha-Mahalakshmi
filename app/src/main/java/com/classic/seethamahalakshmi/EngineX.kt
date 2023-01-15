@@ -3,7 +3,10 @@ package com.classic.seethamahalakshmi
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
-import com.classic.seethamahalakshmi.Resources.globalKeywordsList
+import com.classic.seethamahalakshmi.misc.Resources.globalKeywordsList
+import com.classic.seethamahalakshmi.classfiles.Command
+import com.classic.seethamahalakshmi.enums.CategoryType
+import com.classic.seethamahalakshmi.misc.Resources
 import java.util.stream.Collectors
 
 class EngineX {
@@ -13,10 +16,10 @@ class EngineX {
         val commandTokens = command.tokens as ArrayList<String>
         val probabilityMap = HashMap<CategoryType, Int>()
         for (category in globalKeywordsList) {
-            probabilityMap[category.categoryType] = getMatchBetweenList(commandTokens,category.categoryList)
+            probabilityMap[category.categoryType] =
+                getMatchBetweenList(commandTokens, category.categoryList)
         }
-        val matchedCategory : CategoryType = getMaximumMatchedCategory(probabilityMap)
-        return matchedCategory
+        return getMaximumMatchedCategory(probabilityMap)
     }
 
     private fun getMaximumMatchedCategory(probabilityMap: HashMap<CategoryType, Int>): CategoryType {

@@ -1,4 +1,6 @@
-package com.classic.seethamahalakshmi
+package com.classic.seethamahalakshmi.classfiles
+
+import com.classic.seethamahalakshmi.enums.CategoryType
 
 class Command(rawTextArg: String) {
     var dynamicText: String? = null

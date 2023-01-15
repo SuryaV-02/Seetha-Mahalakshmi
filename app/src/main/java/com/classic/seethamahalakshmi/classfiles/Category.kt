@@ -1,4 +1,6 @@
-package com.classic.seethamahalakshmi
+package com.classic.seethamahalakshmi.classfiles
+
+import com.classic.seethamahalakshmi.enums.CategoryType
 
 class Category (categoryTypeArg : CategoryType, categoryListArg : ArrayList<String>) {
     var categoryType : CategoryType

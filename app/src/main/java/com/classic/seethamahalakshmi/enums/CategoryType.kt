@@ -1,4 +1,4 @@
-package com.classic.seethamahalakshmi
+package com.classic.seethamahalakshmi.enums
 
 enum class CategoryType {
     APPOINTMENT,
