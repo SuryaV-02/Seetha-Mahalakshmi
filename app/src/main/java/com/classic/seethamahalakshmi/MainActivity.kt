@@ -12,13 +12,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-// TODO: Add a entry in CategoryType enum and a initialize<TYPE> function at Resources.java and add it to globalList to get started 
+// TODO: To add a generic type, create a entry in CategoryType enum and a initialize<TYPE> function at Resources.java and add it to globalList
+// TODO: To add a sub action, create enum {$ActionName}Action in enums dir, add entry in getActions() @EngineX
         startTest();
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun startTest() {
-        val testCommand = Command("Get my Pills, and medicine record and appointment details")
+        val testCommand = Command("")
         val engineX = EngineX()
         engineX.startProcessing(testCommand)
 

@@ -6,6 +6,7 @@ class Command(rawTextArg: String) {
     var dynamicText: String? = null
     lateinit var tokens: MutableList<String>
     lateinit var categoryType : CategoryType
+    lateinit var actionInfType : String
     var result = 0
     var rawText: String
     init {
