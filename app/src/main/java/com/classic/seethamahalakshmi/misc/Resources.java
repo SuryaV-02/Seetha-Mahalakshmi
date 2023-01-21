@@ -13,7 +13,8 @@ public class Resources {
     public static ArrayList<Category> globalKeywordsList;
     public static ArrayList<String> dayTimes;
     public static String timePattern = "[0-9]{2}:[0-9]{2}";
-    public static String dayPattern = "[0-9]{2}/[0-9]{2}/[0-9]{2}";
+    public static String datePattern = "[0-9]{2}/[0-9]{2}";
+    public static String sessionPattern = "(a|p){1}.{1}m{1}.*";
     public static void initializeResources() {
         Log.i("SKHST 21386" , "Initialising resources");
         globalKeywordsList = new ArrayList<>();

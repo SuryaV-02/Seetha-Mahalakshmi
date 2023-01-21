@@ -3,6 +3,8 @@ package com.classic.seethamahalakshmi.misc
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
@@ -15,9 +17,9 @@ import java.util.concurrent.locks.ReentrantLock
 
 class SpeechRecogniser {
     companion object {
-        private var speechRecognizer: SpeechRecognizer? = null
-        private var speechRecognizerIntent: Intent? = null
-        private var speechResult: String = ""
+        var speechRecognizer: SpeechRecognizer? = null
+        var speechRecognizerIntent: Intent? = null
+        var speechResult: String = ""
         var speechResultProcessMutex : Boolean = false
         var lock : Lock? = null
         var condition : Condition? = null
@@ -34,7 +36,9 @@ class SpeechRecogniser {
             speechRecognizerIntent!!.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
 
             speechRecognizer!!.setRecognitionListener(object : RecognitionListener {
-                override fun onReadyForSpeech(bundle: Bundle?) {}
+                override fun onReadyForSpeech(bundle: Bundle?) {
+                    speechResultProcessMutex = false
+                }
                 override fun onBeginningOfSpeech() {}
                 override fun onRmsChanged(v: Float) {}
                 override fun onBufferReceived(bytes: ByteArray?) {}
@@ -63,10 +67,9 @@ class SpeechRecogniser {
             Log.i("SKHST 6513", "Initi SR success")
         }
 
-        fun listen(): String {
+        fun listen() {
             Log.i("SKHST 58962", "Listening")
             speechRecognizer!!.startListening(speechRecognizerIntent)
-            return speechResult
         }
     }
 }

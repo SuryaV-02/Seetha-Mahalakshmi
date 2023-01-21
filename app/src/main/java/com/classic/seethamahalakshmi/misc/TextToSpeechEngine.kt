@@ -4,6 +4,8 @@ import android.content.Context
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import com.classic.seethamahalakshmi.MainActivity
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.*
 
 class TextToSpeechEngine(context: Context, status : Int) : TextToSpeech.OnInitListener {
@@ -35,7 +37,7 @@ class TextToSpeechEngine(context: Context, status : Int) : TextToSpeech.OnInitLi
     }
 
     companion object {
-        fun speakOut(text: String) {
+        fun speakOut(text: String) = GlobalScope.launch{
             MainActivity.ttsEngine!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
         }
     }
