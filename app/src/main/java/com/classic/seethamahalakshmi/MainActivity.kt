@@ -16,7 +16,7 @@ import androidx.core.content.ContextCompat
 import com.classic.seethamahalakshmi.classfiles.Command
 import com.classic.seethamahalakshmi.misc.SpeechRecogniser.Companion.initializeSpeechToText
 import com.classic.seethamahalakshmi.misc.SpeechRecogniser.Companion.listen
-import com.classic.seethamahalakshmi.misc.SpeechRecogniser.Companion.speakOut
+
 import java.util.*
 
 class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
@@ -31,8 +31,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 // TODO: To add a generic type, create a entry in CategoryType enum and a initialize<TYPE> function at Resources.java and add it to globalList
 // TODO: To add a sub action, create enum {$ActionName}Action in enums dir, add entry in getActions() @EngineX
 //        startTest()
-//        startupTasks()
-        ttsEngine = TextToSpeech(this, this)
+        startupTasks2()
     }
 
 
@@ -48,14 +47,28 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     @RequiresApi(Build.VERSION_CODES.N)
     private fun startupTasks() {
         checkAudioPermission(this)
+        ttsEngine = TextToSpeech(this, this)
+        val tv_result = findViewById<TextView>(R.id.tv_result)
+        val btn_speak = findViewById<Button>(R.id.btn_speak)
+        initializeSpeechToText(this, tv_result)
+        btn_speak.setOnClickListener {
+//            val listenResult = listen()
+            val testCommand = Command("Cancel My a")
+            val engineX = EngineX()
+            engineX.startProcessing(testCommand)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun startupTasks2() {
+        checkAudioPermission(this)
+        ttsEngine = TextToSpeech(this, this)
         val tv_result = findViewById<TextView>(R.id.tv_result)
         val btn_speak = findViewById<Button>(R.id.btn_speak)
         initializeSpeechToText(this, tv_result)
         btn_speak.setOnClickListener {
             val listenResult = listen()
-            val testCommand = Command(listenResult)
-            val engineX = EngineX()
-            engineX.startProcessing(testCommand)
+            Log.i("SKHST 962302", listenResult)
         }
     }
 
@@ -66,6 +79,9 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
         }
     }
+
+
+
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {

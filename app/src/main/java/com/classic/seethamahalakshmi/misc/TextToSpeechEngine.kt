@@ -3,6 +3,7 @@ package com.classic.seethamahalakshmi.misc
 import android.content.Context
 import android.speech.tts.TextToSpeech
 import android.util.Log
+import com.classic.seethamahalakshmi.MainActivity
 import java.util.*
 
 class TextToSpeechEngine(context: Context, status : Int) : TextToSpeech.OnInitListener {
@@ -30,6 +31,12 @@ class TextToSpeechEngine(context: Context, status : Int) : TextToSpeech.OnInitLi
         if (tts != null) {
             tts!!.stop()
             tts!!.shutdown()
+        }
+    }
+
+    companion object {
+        fun speakOut(text: String) {
+            MainActivity.ttsEngine!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
         }
     }
 }
