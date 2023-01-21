@@ -15,7 +15,7 @@ class EngineX {
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun startProcessing(command : Command) {
-        Resources.initializeResources()
+        initializeResources()
         preprocessCommand(command)
         processFirstLayer(command)
         processSecondLayer(command)
@@ -57,6 +57,7 @@ class EngineX {
             )
         }
         command.actionInfType = getMaximumMatchedAction(actionInfProbabilityMap)
+        Log.i("SKHST 6853120", command.actionInfType)
     }
 
     fun processThirdLayer(command: Command) {
