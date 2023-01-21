@@ -9,13 +9,13 @@ import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.widget.TextView
+import com.classic.seethamahalakshmi.MainActivity.Companion.ttsEngine
 import java.util.*
 
 class SpeechRecogniser {
     companion object {
         private var speechRecognizer: SpeechRecognizer? = null
         private var speechRecognizerIntent: Intent? = null
-        private var tts: TextToSpeech? = null
         private var speechResult: String = ""
 
         fun initializeSpeechToText(context: Context, outputTV: TextView) {
@@ -57,17 +57,10 @@ class SpeechRecogniser {
             Log.i("SKHST 89632", "Listen done")
         }
 
-        private fun speakOut(text: String) {
-            tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
-        }
-
-        fun destroyTextToSpeech() {
-            // Shutdown TTS when
-            // activity is destroyed
-            if (tts != null) {
-                tts!!.stop()
-                tts!!.shutdown()
-            }
-        }
+    fun speakOut(text: String) {
+        ttsEngine!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
     }
+
+
+}
 }

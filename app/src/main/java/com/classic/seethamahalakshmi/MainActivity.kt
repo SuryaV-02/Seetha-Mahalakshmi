@@ -3,22 +3,26 @@ package com.classic.seethamahalakshmi
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.StrictMode
+import android.speech.tts.TextToSpeech
+import android.system.Os.listen
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.classic.seethamahalakshmi.classfiles.Command
-import com.classic.seethamahalakshmi.misc.SpeechRecogniser
 import com.classic.seethamahalakshmi.misc.SpeechRecogniser.Companion.initializeSpeechToText
 import com.classic.seethamahalakshmi.misc.SpeechRecogniser.Companion.listen
-import com.classic.seethamahalakshmi.misc.TextToSpeechEngine
+import com.classic.seethamahalakshmi.misc.SpeechRecogniser.Companion.speakOut
+import java.util.*
 
-class MainActivity : AppCompatActivity() {
-    var ttsEngine : TextToSpeechEngine? = null
+class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
+    companion object {
+        var ttsEngine: TextToSpeech? = null
+    }
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +32,7 @@ class MainActivity : AppCompatActivity() {
 // TODO: To add a sub action, create enum {$ActionName}Action in enums dir, add entry in getActions() @EngineX
 //        startTest()
 //        startupTasks()
-        ttsEngine = TextToSpeechEngine(this,1)
-        ttsEngine!!.speakOut("Hello Sri!")
+        ttsEngine = TextToSpeech(this, this)
     }
 
 
@@ -63,4 +66,27 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            val result = ttsEngine!!.setLanguage(Locale.US)
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS","The Language not supported!")
+            } else {
+                Log.i("SKHST 896451", "Initialized TTS successfully!")
+            }
+        }
+    }
+
+    public override fun onDestroy() {
+        // Shutdown TTS when
+        // activity is destroyed
+        if (ttsEngine != null) {
+            ttsEngine!!.stop()
+            ttsEngine!!.shutdown()
+        }
+        super.onDestroy()
+        Log.i("SKHST 5613", "destroyied..")
+    }
+
 }
