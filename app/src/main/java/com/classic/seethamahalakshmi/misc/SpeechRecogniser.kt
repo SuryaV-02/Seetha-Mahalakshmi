@@ -12,14 +12,13 @@ import java.util.*
 import java.util.concurrent.locks.Condition
 import java.util.concurrent.locks.Lock
 import java.util.concurrent.locks.ReentrantLock
-import kotlin.concurrent.withLock
 
 class SpeechRecogniser {
     companion object {
         private var speechRecognizer: SpeechRecognizer? = null
         private var speechRecognizerIntent: Intent? = null
         private var speechResult: String = ""
-        private var speechResultProcessMutex : Boolean = false
+        var speechResultProcessMutex : Boolean = false
         var lock : Lock? = null
         var condition : Condition? = null
 
@@ -49,11 +48,11 @@ class SpeechRecogniser {
                         Log.i("SKHST 48512", result.toString())
                         speechResultProcessMutex = true
                         Log.i("SKHST 58962", "processing result done")
-                        lock?.withLock {
-                            Log.i("SKHST 58962", "signal lock")
-                            condition?.signal()
-                            Log.i("SKHST 58962", "signalledd lock")
-                        }
+//                        lock?.withLock {
+//                            Log.i("SKHST 58962", "signal lock")
+//                            condition?.signal()
+//                            Log.i("SKHST 58962", "signalledd lock")
+//                        }
                     }
                 }
 
@@ -67,12 +66,6 @@ class SpeechRecogniser {
         fun listen(): String {
             Log.i("SKHST 58962", "Listening")
             speechRecognizer!!.startListening(speechRecognizerIntent)
-            lock?.withLock {
-                Log.i("SKHST 58962", "Enter lock")
-                condition?.await()
-                Log.i("SKHST 58962", "Exit Lock")
-            }
-            Log.i("SKHST 58962", "Returning Lock")
             return speechResult
         }
     }

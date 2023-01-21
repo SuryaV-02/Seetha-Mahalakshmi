@@ -65,8 +65,8 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         ttsEngine = TextToSpeech(this, this)
         val tv_result = findViewById<TextView>(R.id.tv_result)
         val btn_speak = findViewById<Button>(R.id.btn_speak)
-        initializeSpeechToText(this, tv_result)
         btn_speak.setOnClickListener {
+            initializeSpeechToText(this, tv_result)
             val listenResult = listen()
             Log.i("SKHST 962302", listenResult)
         }
