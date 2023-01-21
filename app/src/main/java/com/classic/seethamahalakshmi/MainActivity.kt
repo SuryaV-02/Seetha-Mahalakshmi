@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             val testCommand = Command("reschedule my appointment with doctor surya at 12:56 p.m on 12/11")
             val engineX = EngineX()
             engineX.startProcessing(testCommand)
-        }
+        } 
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
