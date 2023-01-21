@@ -43,48 +43,6 @@ fun putDummyDataInAppointment(appointmentDetails: AppointmentDetails) {
     appointmentDetails.Id = 123456.toString()
 }
 
-fun rescheduleAppointment(appointmentDetails: AppointmentDetails) {
-    // TODO: Check if appointment is scheduled with doctor at specified time
-    val isAppointmentScheduledAtSpecificTime = true
-    if (isAppointmentScheduledAtSpecificTime) {
-        checkAndBookAppointment(appointmentDetails)
-    } else {
-        speakOut("Sorry, there is no appointment scheduled at the given time.")
-    }
-}
-
-fun checkAndBookAppointment(appointmentDetails: AppointmentDetails) {
-    // TODO: Send Appointment to doctor
-    speakOut("Requesting appointment " +
-            "with ${appointmentDetails.doctorName}" +
-            "at ${appointmentDetails.clinicName} " +
-            "for ${appointmentDetails.diagnosisName}")
-}
-
-fun speakAppointmentDetailsIfExists(appointmentDetails: AppointmentDetails) {
-    if (appointmentDetails.Id != null) {
-        speakOut("Appointment has already been scheduled " +
-                "with ${appointmentDetails.doctorName}" +
-                "at ${appointmentDetails.clinicName} " +
-                "for ${appointmentDetails.diagnosisName}")
-    }
-}
-
-fun fetchAndSetAppointmentDetails(appointmentDetails: AppointmentDetails) : Boolean {
-//    TODO fetch And Set Appointment details if exist and return true, else return false
-    return true
-}
-
-fun cancelAppointment(appointmentDetails: AppointmentDetails) {
-    val appointmentFound = true
-    if(appointmentFound) {
-        // TODO: Logic to delete appointment from database
-        speakOut("Appointment with doctor ${appointmentDetails.doctorName} " +
-                "at ${appointmentDetails.clinicName} cancelled successfully!")
-    } else {
-        speakOut("Sorry, there is no appointment scheduled at the given time.")
-    }
-}
 
 fun testAndSetProperAppointmentTime(
     command: Command,
@@ -98,21 +56,6 @@ fun testAndSetProperAppointmentTime(
         return false
     }
     return true
-}
-
-/*
-returns false if doctor name is not there in command
-else sets doctor name @AppointmentDetails -> doctorName and returns true
- */
-fun doctorNameFoundInAppointment(command: Command, appointmentDetails: AppointmentDetails): Boolean {
-    for (i in 0 until command.tokens.count() - 1) {
-        Log.i("SKHST_3254" , command.tokens.elementAt(i) + " -> " + command.tokens.elementAt(i+1))
-        if("doctor" == command.tokens.elementAt(i)) {
-            appointmentDetails.doctorName = command.tokens.elementAt(i+1)
-            return true
-        }
-    }
-    return false
 }
 
 /*
@@ -145,6 +88,21 @@ fun timeFoundInAppointment(command: Command, appointmentDetails: AppointmentDeta
     return true
 }
 
+/*
+returns false if doctor name is not there in command
+else sets doctor name @AppointmentDetails -> doctorName and returns true
+ */
+fun doctorNameFoundInAppointment(command: Command, appointmentDetails: AppointmentDetails): Boolean {
+    for (i in 0 until command.tokens.count() - 1) {
+        Log.i("SKHST_3254" , command.tokens.elementAt(i) + " -> " + command.tokens.elementAt(i+1))
+        if("doctor" == command.tokens.elementAt(i)) {
+            appointmentDetails.doctorName = command.tokens.elementAt(i+1)
+            return true
+        }
+    }
+    return false
+}
+
 fun parseAndSetAppointmentDetails(
     timeSpecimen: String,
     sessionSpecimen: String,
@@ -156,13 +114,45 @@ fun parseAndSetAppointmentDetails(
     return date.time
 }
 
-//    fun processAppointmentTime(command: Command): String {
-//        var date: String
-//        var time : String
-//        for ( token in command.tokens) {
-//            if (Pattern.matches(Resources.timePattern, token)) {
-//                time = token
-//            }
-//            if(Pattern.matches(Resources.dayPattern, token))
-//        }
-//    }
+fun cancelAppointment(appointmentDetails: AppointmentDetails) {
+    val appointmentFound = true
+    if(appointmentFound) {
+        // TODO: Logic to delete appointment from database
+        speakOut("Appointment with doctor ${appointmentDetails.doctorName} " +
+                "at ${appointmentDetails.clinicName} cancelled successfully!")
+    } else {
+        speakOut("Sorry, there is no appointment scheduled at the given time.")
+    }
+}
+
+fun speakAppointmentDetailsIfExists(appointmentDetails: AppointmentDetails) {
+    if (appointmentDetails.Id != null) {
+        speakOut("Appointment has already been scheduled " +
+                "with ${appointmentDetails.doctorName}" +
+                "at ${appointmentDetails.clinicName} " +
+                "for ${appointmentDetails.diagnosisName}")
+    }
+}
+
+fun checkAndBookAppointment(appointmentDetails: AppointmentDetails) {
+    // TODO: Send Appointment to doctor
+    speakOut("Requesting appointment " +
+            "with ${appointmentDetails.doctorName}" +
+            "at ${appointmentDetails.clinicName} " +
+            "for ${appointmentDetails.diagnosisName}")
+}
+
+fun rescheduleAppointment(appointmentDetails: AppointmentDetails) {
+    // TODO: Check if appointment is scheduled with doctor at specified time
+    val isAppointmentScheduledAtSpecificTime = true
+    if (isAppointmentScheduledAtSpecificTime) {
+        checkAndBookAppointment(appointmentDetails)
+    } else {
+        speakOut("Sorry, there is no appointment scheduled at the given time.")
+    }
+}
+
+fun fetchAndSetAppointmentDetails(appointmentDetails: AppointmentDetails) : Boolean {
+//    TODO fetch And Set Appointment details if exist and return true, else return false
+    return true
+}

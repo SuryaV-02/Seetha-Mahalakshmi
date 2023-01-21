@@ -1,4 +1,4 @@
-package com.classic.seethamahalakshmi.misc
+package com.classic.seethamahalakshmi.experiments
 
 import android.content.Intent
 import android.os.Bundle
