@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             val engineX = EngineX()
             engineX.startProcessing(testCommand)
         }
-    }
+    } 
 
 
     fun checkAudioPermission(context: Context) {
