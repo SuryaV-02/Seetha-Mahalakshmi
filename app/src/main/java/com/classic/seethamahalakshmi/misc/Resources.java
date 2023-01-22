@@ -12,7 +12,7 @@ import java.util.List;
 public class Resources {
     public static ArrayList<Category> globalKeywordsList;
     public static ArrayList<String> dayTimes;
-    public static String timePattern = "[0-9]{2}:[0-9]{2}";
+    public static String timePattern = "[0-9]{1,2}:[0-9]{1,2}";
     public static String datePattern = "[0-9]{2}/[0-9]{2}";
     public static String sessionPattern = "(a|p){1}.{1}m{1}.*";
     public static void initializeResources() {

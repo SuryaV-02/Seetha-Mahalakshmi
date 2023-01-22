@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.classic.seethamahalakshmi.MainActivity.Companion.ttsEngine
 import com.classic.seethamahalakshmi.classfiles.Command
 import com.classic.seethamahalakshmi.experiments.GTTS
 import com.classic.seethamahalakshmi.misc.SpeechRecogniser.Companion.initializeSpeechToText
@@ -53,6 +54,12 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 engineX.startProcessing(testCommand)
             },10*1000)
 
+/*
+                val testCommand = Command("reschedule my appointment with doctor surya at 12:00 p.m on October 12th")
+                //"reschedule my appointment with doctor surya at 12:56 p.m on 12/11"
+                val engineX = EngineX()
+                engineX.startProcessing(testCommand)
+*/
 
 
 ////            val listenResult = listen()

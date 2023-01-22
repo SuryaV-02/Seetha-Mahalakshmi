@@ -1,5 +1,6 @@
 package com.classic.seethamahalakshmi.ActionClasses.Appointments
 
+import android.annotation.SuppressLint
 import android.util.Log
 import com.classic.seethamahalakshmi.classfiles.AppointmentDetails
 import com.classic.seethamahalakshmi.classfiles.Command
@@ -7,11 +8,20 @@ import com.classic.seethamahalakshmi.enums.AppointmentAction
 import com.classic.seethamahalakshmi.misc.Resources
 import com.classic.seethamahalakshmi.misc.TextToSpeechEngine.Companion.speakOut
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.regex.Pattern
 
+
 var doctorNameRequiredAppointmentActions: ArrayList<String> =
     ArrayList<String>(listOf(AppointmentAction.BOOK.toString(), AppointmentAction.RESCHEDULE.toString()))
+var DAYS: ArrayList<String> =
+    ArrayList<String>(listOf("today","tomorrow"))
+var MONTHS: ArrayList<String> =
+    ArrayList<String>(listOf("january","february","march","april","may","june","july","august",
+        "september","october","november","december"))
+
 
 fun processAppointment(command: Command) {
     val appointmentDetails = AppointmentDetails()
@@ -78,6 +88,10 @@ fun timeFoundInAppointment(command: Command, appointmentDetails: AppointmentDeta
         }
         if (Pattern.matches(Resources.datePattern, token)) {
             dateSpecimen = token
+        }else if (DAYS.contains(token)) {
+            dateSpecimen = calculateDateFromDay(token)
+        } else if (MONTHS.contains(token)) {
+            dateSpecimen = calculateDateFromMonth(command, token)
         }
         Log.i("SKHST_95623", "$token $timeSpecimen $sessionSpecimen $dateSpecimen")
     }
@@ -87,6 +101,45 @@ fun timeFoundInAppointment(command: Command, appointmentDetails: AppointmentDeta
     appointmentDetails.time = parseAndSetAppointmentDetails(timeSpecimen, sessionSpecimen, dateSpecimen)
     return true
 }
+
+fun calculateDateFromMonth(command: Command, token: String): String? {
+    var monthVal = MONTHS.indexOf(token) + 1
+    var day : String = ""
+    var month : String = ""
+    for(i in 0 until command.tokens.size - 1) {
+        if (command.tokens.elementAt(i) == token) {
+            day = command.tokens.elementAt(i + 1)
+            break
+        }
+    }
+    if (day.length > 3) {
+        day = day.substring(0,2)
+    } else {
+        day = "0" + day.substring(0,1)
+    }
+
+    if(monthVal < 10) {
+        month = "0$monthVal"
+    } else {
+        month = "$monthVal"
+    }
+    Log.i("SKHST_94613", "$day/$month")
+    return "$day/$month"
+}
+
+@SuppressLint("NewApi")
+fun calculateDateFromDay(token: String): String? {
+    val dtf = DateTimeFormatter.ofPattern("dd/M")
+    if (token == "today") {
+        val now = LocalDateTime.now()
+        return dtf.format(now)
+    } else {
+        val today = Date()
+        val tomorrow = Date(today.time + 1000 * 60 * 60 * 24)
+        return SimpleDateFormat("dd/M").format(tomorrow)
+    }
+}
+
 
 /*
 returns false if doctor name is not there in command
