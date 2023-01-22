@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -16,6 +18,7 @@ import com.classic.seethamahalakshmi.classfiles.Command
 import com.classic.seethamahalakshmi.experiments.GTTS
 import com.classic.seethamahalakshmi.misc.SpeechRecogniser.Companion.initializeSpeechToText
 import com.classic.seethamahalakshmi.misc.SpeechRecogniser.Companion.listen
+import com.classic.seethamahalakshmi.misc.SpeechRecogniser.Companion.speechResult
 import java.util.*
 
 class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
@@ -38,15 +41,26 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         checkAudioPermission(this)
         ttsEngine = TextToSpeech(this, this)
         val tv_result = findViewById<TextView>(R.id.tv_result)
-        val btn_speak = findViewById<Button>(R.id.btn_speak)
+        val btn_speak = findViewById<ImageButton>(R.id.btn_speak)
         initializeSpeechToText(this, tv_result)
         btn_speak.setOnClickListener {
-//            val listenResult = listen()
-            val testCommand = Command("reschedule my appointment with doctor surya at 12:56 p.m on 12/11")
-            val engineX = EngineX()
-            engineX.startProcessing(testCommand)
+            listen()
+            Handler().postDelayed({
+                Toast.makeText(this, speechResult, Toast.LENGTH_SHORT).show()
+                val testCommand = Command(speechResult)
+                //"reschedule my appointment with doctor surya at 12:56 p.m on 12/11"
+                val engineX = EngineX()
+                engineX.startProcessing(testCommand)
+            },10*1000)
+
+
+
+////            val listenResult = listen()
+//            val testCommand = Command("reschedule my appointment with doctor surya at 12:56 p.m on 12/11")
+//            val engineX = EngineX()
+//            engineX.startProcessing(testCommand)
         }
-    } 
+    }
 
 
     fun checkAudioPermission(context: Context) {

@@ -3,7 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/AndroidDevFiles/SeethaMahalakshmi/app/src/main/res/layout/activity_main.xml" value="0.2359375" />
+        <entry key="..\:/AndroidDevFiles/SeethaMahalakshmi/app/src/main/res/drawable-v24/ic_svg_more_vert_black_24dp.xml" value="0.125" />
+        <entry key="..\:/AndroidDevFiles/SeethaMahalakshmi/app/src/main/res/drawable/gradient_background.xml" value="0.125" />
+        <entry key="..\:/AndroidDevFiles/SeethaMahalakshmi/app/src/main/res/drawable/ic_baseline_mic_24.xml" value="0.125" />
+        <entry key="..\:/AndroidDevFiles/SeethaMahalakshmi/app/src/main/res/drawable/ic_svg_arrow_back_ios_new_black_24dp.xml" value="0.125" />
+        <entry key="..\:/AndroidDevFiles/SeethaMahalakshmi/app/src/main/res/drawable/round_button.xml" value="0.125" />
+        <entry key="..\:/AndroidDevFiles/SeethaMahalakshmi/app/src/main/res/layout/activity_appointment.xml" value="0.25" />
+        <entry key="..\:/AndroidDevFiles/SeethaMahalakshmi/app/src/main/res/layout/activity_main.xml" value="0.176" />
+        <entry key="..\:/AndroidDevFiles/SeethaMahalakshmi/app/src/main/res/layout/nav_bar.xml" value="0.25" />
       </map>
     </option>
   </component>
