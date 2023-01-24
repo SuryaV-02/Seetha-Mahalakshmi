@@ -101,7 +101,9 @@ fun timeFoundInAppointment(command: Command, appointmentDetails: AppointmentDeta
     appointmentDetails.time = parseAndSetAppointmentDetails(timeSpecimen, sessionSpecimen, dateSpecimen)
     return true
 }
-
+/*
+ format :: {month} {date}{superScript} eg., October 12th
+ */
 fun calculateDateFromMonth(command: Command, token: String): String? {
     var monthVal = MONTHS.indexOf(token) + 1
     var day : String = ""
